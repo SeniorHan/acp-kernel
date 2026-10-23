@@ -25,6 +25,7 @@ export function mergeCompressionState(
     rules: parsed.rules ?? fresh.rules,
     nextRuleId: parsed.nextRuleId ?? fresh.nextRuleId,
     terminalStreak: parsed.terminalStreak,
+    repeatFailures: parsed.repeatFailures,
     imageFullRestored: parsed.imageFullRestored ?? fresh.imageFullRestored,
     imageShrinks: parsed.imageShrinks ?? fresh.imageShrinks,
   };
