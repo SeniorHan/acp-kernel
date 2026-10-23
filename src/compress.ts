@@ -734,8 +734,8 @@ export function createCore(ports: Ports = {}): CompressionCore {
           input.persistedMessageIds,
         )
       : [];
-    if (offBranch.length > 0) {
-      const offSet = new Set(offBranch);
+    const offSet = new Set(offBranch);
+    if (offSet.size > 0) {
       initial.state = {
         ...input.state,
         blocks: input.state.blocks.map((b) =>
@@ -754,13 +754,13 @@ export function createCore(ports: Ports = {}): CompressionCore {
     const inboundIds = input.messages.map((m) => m.id);
     const result = runPipeline(nodes, initial, ctx);
     let outState = result.state;
-    if (offBranch.length > 0) {
+    if (offSet.size > 0) {
       // Restore the original expanded flags: the mask is turn-scoped, so a
       // later turn back on the full branch reactivates the block.
       const originalExpanded = new Map(
         input.state.blocks
-          .filter((b) => offBranch.includes(b.blockId))
-          .map((b) => [b.blockId, b.expanded as boolean | undefined]),
+          .filter((b) => offSet.has(b.blockId))
+          .map((b): [string, boolean | undefined] => [b.blockId, b.expanded]),
       );
       outState = {
         ...outState,
