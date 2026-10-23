@@ -728,7 +728,11 @@ export function createCore(ports: Ports = {}): CompressionCore {
     // never persisted — the original expanded flags are restored on the
     // result state below.
     const offBranch = input.persistedMessageIds
-      ? findOffBranchBlocks(input.messages, input.state, input.persistedMessageIds)
+      ? findOffBranchBlocks(
+          input.messages,
+          input.state,
+          input.persistedMessageIds,
+        )
       : [];
     if (offBranch.length > 0) {
       const offSet = new Set(offBranch);

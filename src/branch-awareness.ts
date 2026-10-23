@@ -33,7 +33,8 @@ export function findOffBranchBlocks(
   persistedIds: ReadonlySet<string>,
 ): string[] {
   const present = new Set<string>();
-  for (const m of messages) if (typeof m.id === "string") present.add(baseIdOf(m.id));
+  for (const m of messages)
+    if (typeof m.id === "string") present.add(baseIdOf(m.id));
   const off: string[] = [];
   for (const block of state.blocks) {
     if (block.expanded) continue;
